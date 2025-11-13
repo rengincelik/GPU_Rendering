@@ -7,7 +7,7 @@ Shader "GPUSpriteUnlit/Standart"
     SubShader
     {
         Tags { "RenderType"="Transparent" "Queue"="Transparent" }
-        
+
 
         Pass
         {
@@ -69,3 +69,4 @@ Shader "GPUSpriteUnlit/Standart"
         }
     }
 }
+

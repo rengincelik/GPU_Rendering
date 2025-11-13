@@ -165,14 +165,14 @@ public class GPU_Sprite_InstancingController : MonoBehaviour
     {
         renderBuffer.SetCounterValue(0);
         deletedItemsBuffer.SetCounterValue(0);
-        
+
 
         // 1. Erase instances
         EraseInstancesGPU();
 
         // 2. Read deleted items
         ReadDeletedItems();
-        
+
 
         // 3. Add new instances (simple linear allocation)
         AddNewInstances();
@@ -428,3 +428,5 @@ public class GPU_Sprite_InstancingController : MonoBehaviour
         return mesh;
     }
 }
+
+
