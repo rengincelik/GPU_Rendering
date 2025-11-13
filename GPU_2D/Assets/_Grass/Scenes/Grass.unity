@@ -135,7 +135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &277759179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,7 +188,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &611430875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,7 +204,7 @@ MonoBehaviour:
   computeShader: {fileID: 7200000, guid: 81aee9e18a2ab32469961a73bb39cec3, type: 3}
   grassMaterial: {fileID: 2100000, guid: fa67beb77ceab1a4daeafcc254131beb, type: 2}
   grassObject: {fileID: 688007709964273759, guid: c4222eb0f2f42cb44943395138816c15, type: 3}
-  grassCount: 1000000
+  grassCount: 100000
   areaSize: {x: 1000, y: 1000}
   scaleMin: 0.5
   scaleMax: 3

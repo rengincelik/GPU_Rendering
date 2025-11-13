@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f50e4301a85c744eaa8717f0a31b317, type: 3}
-  m_Name: New Branch Data 2
+  m_Name: New Branch Data 3
   m_EditorClassIdentifier: 
-  radius: 1.47
-  segments: 4
-  percent: 39
-  branchLength: 6.16
+  radius: 1
+  segments: 10
+  percent: 50
+  branchLength: 1
   endType: 1
-  childBranch: {fileID: 11400000, guid: 54c19e20e22bc2142b58308001b45fbc, type: 2}
+  childBranch: {fileID: 11400000, guid: 3ff18ceffe2e23945a3d9603bfb7cf0c, type: 2}
