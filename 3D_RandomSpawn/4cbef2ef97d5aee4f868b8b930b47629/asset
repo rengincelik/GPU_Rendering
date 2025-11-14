@@ -52,6 +52,5 @@ Shader "Unlit/RandomSpawning_URP"
             ENDHLSL
         }
     }
-    
 }
 

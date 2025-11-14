@@ -1,8 +1,9 @@
-Shader "Unlit/RandomSpawning_URP"
+Shader "Unlit/SizeChange"
 {
     Properties
     {
         _Color ("Color", Color) = (1,1,1,1)
+        _Size ("Size", Float) = 1.0 
     }
     SubShader
     {
@@ -21,6 +22,7 @@ Shader "Unlit/RandomSpawning_URP"
             struct ItemData
             {
                 float4 position;
+                float size;
             };
             StructuredBuffer<ItemData> itemBuffer;
 
@@ -33,14 +35,23 @@ Shader "Unlit/RandomSpawning_URP"
             {
                 float4 positionHCS : SV_POSITION;
             };
-
+            float _Size; 
             float4 _Color;
 
             Varyings vert(Attributes IN, uint instanceID : SV_InstanceID)
             {
                 Varyings OUT;
-                float3 pos = itemBuffer[instanceID].position.xyz;
-                OUT.positionHCS = TransformObjectToHClip(IN.positionOS + float4(pos,1.0));
+    
+                float3 instancePos = itemBuffer[instanceID].position.xyz;
+                
+                float finalScale = _Size;
+                
+                float3 scaledPosOS = IN.positionOS.xyz * finalScale; 
+                
+                float4 finalPos = float4(scaledPosOS + instancePos, 1.0);
+                
+                OUT.positionHCS = TransformObjectToHClip(finalPos);
+                
                 return OUT;
             }
 
@@ -52,6 +63,4 @@ Shader "Unlit/RandomSpawning_URP"
             ENDHLSL
         }
     }
-    
 }
-
