@@ -128,10 +128,11 @@ public class GPU_Sprite_InstancingController : MonoBehaviour
     void InitializeBuffers()
     {
         int stride = Marshal.SizeOf(typeof(ItemData));
+        int deletedStride = Marshal.SizeOf(typeof(DeletedItemDebug));
 
         mainBuffer = new ComputeBuffer(maxInstances, stride);
         newItemsBuffer = new ComputeBuffer(maxInstances, stride);
-        deletedItemsBuffer = new ComputeBuffer(maxInstances, stride, ComputeBufferType.Append);
+        deletedItemsBuffer = new ComputeBuffer(maxInstances, deletedStride, ComputeBufferType.Append);
         renderBuffer = new ComputeBuffer(maxInstances, stride, ComputeBufferType.Append);
         argsBuffer = new ComputeBuffer(1, argsData.Length * sizeof(uint), ComputeBufferType.IndirectArguments);
         frustumPlanesBuffer = new ComputeBuffer(6, sizeof(float) * 4);
