@@ -4,7 +4,7 @@ A comprehensive collection of GPU-accelerated rendering systems and procedural g
 
 ## 📂 Project Structure
 
-### [GPU Instancing Methods](GPU_2D/Assets/_3D_GPU_Instancing/Readme.md)
+### [GPU Instancing Methods](GPU_Rendering/GPU_2D/Assets/_3D_GPU_Instancing/Readme.md)
 Three different approaches to GPU instancing for rendering thousands of objects efficiently.
 
 **Systems:**
