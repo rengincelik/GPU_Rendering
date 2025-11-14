@@ -38,34 +38,24 @@ public class CPUInstancer : MonoBehaviour
         GeneratePositions();
         PrepareMatrices();
     }
-
-    // void Update()
-    // {
-    //     if (matrices == null || mesh == null || material == null)
-    //     {
-    //         Debug.Log("something is null");
-    //         return;
-    //     }
-
-    //     Graphics.DrawMeshInstanced(mesh, 0, material, matrices);
-    // }
     void Update()
-{
-    if (matrices == null || mesh == null || material == null)
     {
-        Debug.Log("something is null");
-        return;
+        if (matrices == null || mesh == null || material == null)
+        {
+            Debug.Log("something is null");
+            return;
+        }
+
+        const int batchSize = 1023; // Unity tek çağrıda max
+        int total = matrices.Length;
+        for (int i = 0; i < total; i += batchSize)
+        {
+            int count = Mathf.Min(batchSize, total - i);
+            Graphics.DrawMeshInstanced(mesh, 0, material, matrices, count, null,
+                UnityEngine.Rendering.ShadowCastingMode.On, true, gameObject.layer);
+        }
     }
 
-    const int batchSize = 1023; // Unity tek çağrıda max
-    int total = matrices.Length;
-    for (int i = 0; i < total; i += batchSize)
-    {
-        int count = Mathf.Min(batchSize, total - i);
-        Graphics.DrawMeshInstanced(mesh, 0, material, matrices, count, null,
-            UnityEngine.Rendering.ShadowCastingMode.On, true, gameObject.layer);
-    }
-}
 
 
     [ContextMenu("Generate Positions")]
@@ -102,5 +92,6 @@ public class CPUInstancer : MonoBehaviour
         }
         Debug.Log("Matrices hazırlandı.");
     }
-    
+
 }
+

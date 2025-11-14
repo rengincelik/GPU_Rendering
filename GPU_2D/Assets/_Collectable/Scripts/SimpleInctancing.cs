@@ -4,7 +4,7 @@ public class SimpleInstancing : MonoBehaviour
 {
     public GameObject prefab;
     public int instanceCount = 100;
-    public Vector3 areaSize = new Vector3(10, 0, 10);
+    public Vector3 areaSize = new Vector3(100, 10, 10);
 
     private Mesh mesh;
     private Material material;
@@ -26,11 +26,12 @@ public class SimpleInstancing : MonoBehaviour
         {
             Vector3 pos = new Vector3(
                 Random.Range(-areaSize.x / 2, areaSize.x / 2),
-                0f,
+                Random.Range(-areaSize.y / 2, areaSize.y / 2),
                 Random.Range(-areaSize.z / 2, areaSize.z / 2)
             );
             matrices[i] = Matrix4x4.TRS(pos, Quaternion.identity, Vector3.one);
         }
+        Debug.Log("" + instanceCount + "");
     }
 
     void Update()
@@ -39,4 +40,5 @@ public class SimpleInstancing : MonoBehaviour
 
         Graphics.DrawMeshInstanced(mesh, 0, material, matrices);
     }
+
 }

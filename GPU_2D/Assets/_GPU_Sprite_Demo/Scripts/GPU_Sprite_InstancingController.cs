@@ -267,6 +267,7 @@ public class GPU_Sprite_InstancingController : MonoBehaviour
         }
     }
 
+
     void CleanupOldGizmos()
     {
         float currentTime = Time.time;
@@ -428,6 +429,7 @@ public class GPU_Sprite_InstancingController : MonoBehaviour
         mesh.RecalculateNormals();
         return mesh;
     }
+
 }
 
 

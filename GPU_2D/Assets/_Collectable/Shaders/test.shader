@@ -44,3 +44,4 @@ Shader "Custom/GPUInstancingTest"
         }
     }
 }
+
