@@ -1,4 +1,4 @@
-Shader "GPUSpriteUnlit/Standart"
+Shader "Standart/GPUSpriteUnlit"
 {
     Properties
     {
