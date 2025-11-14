@@ -4,7 +4,7 @@ A comprehensive collection of GPU-accelerated rendering systems and procedural g
 
 ## 📂 Project Structure
 
-### [GPU Instancing Methods](./GPU-Instancing/)
+### [GPU Instancing Methods](GPU_2D/Assets/_3D_GPU_Instancing/Readme.md)
 Three different approaches to GPU instancing for rendering thousands of objects efficiently.
 
 **Systems:**
@@ -16,7 +16,7 @@ Three different approaches to GPU instancing for rendering thousands of objects 
 
 ---
 
-### [GPU Sprite Instancing](./GPU-Sprite-Instancing/)
+### [GPU Sprite Instancing](GPU_2D/Assets/_GPU_Sprite_Demo/Readme.md)
 Advanced 2D sprite instancing system with dynamic addition/removal and culling.
 
 **Features:**
@@ -29,7 +29,7 @@ Advanced 2D sprite instancing system with dynamic addition/removal and culling.
 
 ---
 
-### [Procedural Tree System](./Procedural-Tree/)
+### [Procedural Tree System](GPU_2D/Assets/_Tree/Readme.md)
 ScriptableObject-based recursive branching system for procedural tree generation.
 
 **Features:**
@@ -43,7 +43,7 @@ ScriptableObject-based recursive branching system for procedural tree generation
 
 ---
 
-### [Advanced GPU Instancing](./Advanced-GPU-Instancing/)
+### [Advanced GPU Instancing](GPU_2D/Assets/_Grass/Readme.md)
 Collection of general-purpose and specialized rendering systems.
 
 **Systems:**
