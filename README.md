@@ -24,7 +24,7 @@ High-performance Unity tools for massive object rendering using GPU instancing, 
 ## 🚀 Quick Start
 
 1. Download Unity Package or clone repository
-2. Import into Unity 2021.3+
+2. Import into Unity 6000+
 3. Open example scenes in each folder
 4. Check individual READMEs for setup
 
@@ -38,7 +38,7 @@ High-performance Unity tools for massive object rendering using GPU instancing, 
 
 ## 🔧 Built With
 
-- Unity 2021.3+ (URP)
+- Unity 6000+ (URP)
 - Compute Shaders (HLSL)
 - C# Scripting
 
