@@ -1,0 +1,108 @@
+#pragma kernel AddNewItems
+#pragma kernel SphericalCulling
+#pragma kernel PrepareRenderBuffer
+
+struct ItemData {
+    float3 position;
+    int active;
+};
+
+// Buffers
+RWStructuredBuffer<ItemData> mainBuffer;
+StructuredBuffer<ItemData> newItemsBuffer;
+AppendStructuredBuffer<ItemData> deletedItemsBuffer;
+AppendStructuredBuffer<ItemData> renderBuffer;
+StructuredBuffer<float4> frustumPlanes;
+RWByteAddressBuffer counterBuffer; // Atomic counter for finding slots
+
+// Constants
+uint newItemsCount;
+int maxInstances;
+float3 playerPos;
+float radius;
+uint instanceCount;
+int enableFrustum;
+
+// Frustum culling function
+bool IsInFrustum(float3 position)
+{
+    for (int i = 0; i < 6; i++)
+    {
+        float4 plane = frustumPlanes[i];
+        float dist = dot(plane.xyz, position) + plane.w;
+
+        if (dist < -1.0)
+            return false;
+    }
+    return true;
+}
+
+// GPU finds free slots automatically!
+[numthreads(64,1,1)]
+void AddNewItems(uint3 id : SV_DispatchThreadID)
+{
+    uint idx = id.x;
+    if (idx >= newItemsCount) return;
+
+    // Use atomic counter to get next available slot
+    uint targetIndex;
+    counterBuffer.InterlockedAdd(0, 1, targetIndex);
+
+    // Wrap around if we exceed max
+    targetIndex = targetIndex % maxInstances;
+
+    // Load new item and write directly
+    ItemData newItem = newItemsBuffer[idx];
+    newItem.active = 1;
+    mainBuffer[targetIndex] = newItem;
+}
+
+// Spherical culling (erase)
+[numthreads(64,1,1)]
+void SphericalCulling(uint3 id : SV_DispatchThreadID)
+{
+    uint idx = id.x;
+    if (idx >= instanceCount) return;
+
+    ItemData data = mainBuffer[idx];
+
+    if (data.active == 1)
+    {
+        float3 diff = data.position - playerPos;
+        float distSq = dot(diff, diff);
+        float radiusSq = radius * radius;
+
+        if (distSq <= radiusSq)
+        {
+            data.active = 0;
+            mainBuffer[idx] = data;
+            deletedItemsBuffer.Append(data);
+        }
+    }
+}
+
+// Prepare render buffer with frustum culling
+[numthreads(64,1,1)]
+void PrepareRenderBuffer(uint3 id : SV_DispatchThreadID)
+{
+    uint idx = id.x;
+    if (idx >= instanceCount) return;
+
+    ItemData data = mainBuffer[idx];
+
+    if (data.active == 1)
+    {
+        if (enableFrustum == 1)
+        {
+            if (IsInFrustum(data.position))
+            {
+                renderBuffer.Append(data);
+            }
+        }
+        else
+        {
+            renderBuffer.Append(data);
+        }
+    }
+}
+
