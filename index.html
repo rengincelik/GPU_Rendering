@@ -6,38 +6,38 @@
     <title>GPU Instancing & Rendering Systems - Rengin Çelik</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #0a0a0a;
             color: #e0e0e0;
             line-height: 1.6;
         }
-        
+
         header {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             padding: 80px 20px;
             text-align: center;
             border-bottom: 2px solid #00d4ff;
         }
-        
+
         header h1 {
             font-size: 3em;
             margin-bottom: 10px;
             color: #00d4ff;
             text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
         }
-        
+
         header p {
             font-size: 1.3em;
             color: #b0b0b0;
             margin-bottom: 30px;
         }
-        
+
         nav {
             margin-top: 30px;
         }
-        
+
         nav a {
             color: #00d4ff;
             margin: 0 15px;
@@ -47,18 +47,18 @@
             padding: 8px 16px;
             border-radius: 4px;
         }
-        
+
         nav a:hover {
             background: rgba(0, 212, 255, 0.1);
             transform: translateY(-2px);
         }
-        
+
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 60px 20px;
         }
-        
+
         section {
             margin-bottom: 60px;
             background: #151515;
@@ -67,12 +67,12 @@
             border: 1px solid #252525;
             transition: all 0.3s;
         }
-        
+
         section:hover {
             border-color: #00d4ff;
             box-shadow: 0 0 30px rgba(0, 212, 255, 0.1);
         }
-        
+
         h2 {
             font-size: 2em;
             margin-bottom: 25px;
@@ -80,7 +80,7 @@
             position: relative;
             padding-bottom: 15px;
         }
-        
+
         h2::after {
             content: '';
             position: absolute;
@@ -90,68 +90,69 @@
             height: 3px;
             background: linear-gradient(90deg, #00d4ff, transparent);
         }
-        
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-        
-        .project-card {
+
+        .accordion-item {
             background: #1a1a1a;
+            margin-bottom: 15px;
             border-radius: 8px;
             border: 1px solid #252525;
             overflow: hidden;
             transition: all 0.3s;
-            cursor: pointer;
         }
-        
-        .project-card:hover {
+
+        .accordion-item:hover {
             border-color: #00d4ff;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
         }
-        
-        .project-header {
-            padding: 20px;
+
+        .accordion-header {
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .accordion-header:hover {
             background: rgba(0, 212, 255, 0.05);
-            border-bottom: 1px solid #252525;
         }
-        
-        .project-header h3 {
+
+        .accordion-header h3 {
             color: #00d4ff;
-            font-size: 1.4em;
-            margin-bottom: 8px;
+            font-size: 1.3em;
+            margin: 0;
         }
-        
-        .project-type {
-            display: inline-block;
-            padding: 4px 12px;
-            background: rgba(0, 212, 255, 0.1);
-            border-radius: 12px;
-            font-size: 0.85em;
+
+        .accordion-icon {
             color: #00d4ff;
-            margin-top: 5px;
+            font-size: 1.5em;
+            transition: transform 0.3s;
         }
-        
-        .project-body {
-            padding: 20px;
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
         }
-        
-        .project-body p {
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-inner {
+            padding: 0 25px 25px 25px;
+        }
+
+        .accordion-inner p {
             color: #b0b0b0;
             margin-bottom: 15px;
-            font-size: 0.95em;
         }
-        
         .tech-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
             margin: 15px 0;
         }
-        
         .tech-tag {
             padding: 4px 10px;
             background: #252525;
@@ -159,115 +160,102 @@
             font-size: 0.8em;
             color: #888;
         }
-        
-        .features-list {
+
+
+        .tool-image {
+            width: 100%;
+            height: 200px;
+            background: #252525;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: #666;
+            font-style: italic;
+        }
+
+        .tool-image video {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .tool-features {
             list-style: none;
             margin: 15px 0;
         }
-        
-        .features-list li {
+
+        .tool-features li {
             padding-left: 25px;
             position: relative;
             margin-bottom: 8px;
             color: #888;
-            font-size: 0.9em;
         }
-        
-        .features-list li::before {
+
+        .tool-features li::before {
             content: '▹';
             position: absolute;
             left: 0;
             color: #00d4ff;
             font-size: 1.2em;
         }
-        
-        .project-links {
+
+        .tool-links {
             display: flex;
-            gap: 10px;
+            gap: 15px;
             margin-top: 20px;
             flex-wrap: wrap;
         }
-        
-        .project-links a {
-            padding: 8px 16px;
+
+        .tool-links a {
+            padding: 10px 20px;
             background: #252525;
             color: #00d4ff;
             text-decoration: none;
             border-radius: 6px;
             border: 1px solid #333;
             transition: all 0.3s;
-            font-size: 0.9em;
         }
-        
-        .project-links a:hover {
+
+        .tool-links a:hover {
             background: rgba(0, 212, 255, 0.1);
             border-color: #00d4ff;
             transform: translateY(-2px);
         }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-        
-        .stat-box {
-            background: #1a1a1a;
-            padding: 25px;
-            border-radius: 8px;
-            border: 1px solid #252525;
-            text-align: center;
-        }
-        
-        .stat-number {
-            font-size: 2.5em;
-            color: #00d4ff;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        
-        .stat-label {
+        .features-list { list-style: none; margin: 15px 0; }
+
+        .features-list li {
+            padding-left: 25px;
+            position: relative;
+            margin-bottom: 8px;
             color: #888;
-            font-size: 0.9em;
-        }
-        
+            font-size: 0.9em; }
+
+
+        .features-list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: #00d4ff;
+            font-size: 1.2em; }
+
+
         footer {
             background: #0a0a0a;
-            padding: 40px 20px;
+            padding: 30px 20px;
             text-align: center;
             border-top: 1px solid #252525;
+            color: #666;
         }
-        
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .contact-links a {
-            color: #00d4ff;
-            text-decoration: none;
-            padding: 10px 20px;
-            border: 1px solid #333;
-            border-radius: 6px;
-            transition: all 0.3s;
-        }
-        
-        .contact-links a:hover {
-            background: rgba(0, 212, 255, 0.1);
-            border-color: #00d4ff;
-            transform: translateY(-2px);
-        }
-        
+
         @media (max-width: 768px) {
             header h1 { font-size: 2em; }
             header p { font-size: 1.1em; }
             section { padding: 25px; }
-            .project-grid { grid-template-columns: 1fr; }
-            .stats-grid { grid-template-columns: 1fr; }
+            .accordion-header h3 { font-size: 1.1em; }
         }
     </style>
 </head>
@@ -283,9 +271,11 @@
 
 <div class="container">
     <section>
-        <h2>📊 Project Overview</h2>
+        <h2>About the Project</h2>
         <p>Comprehensive collection of GPU-accelerated rendering systems for Unity, focusing on efficient instancing techniques, procedural generation, and massive object rendering. These tools enable developers to render 10,000+ objects while maintaining optimal performance.</p>
-        
+        <p style="margin-top: 15px;">Built with best practices in mind, focusing on performance, maintainability, and ease of use for rapid prototyping and production pipelines.</p>
+
+
         <div class="stats-grid">
             <div class="stat-box">
                 <div class="stat-number">100K+</div>
@@ -307,55 +297,58 @@
     </section>
 
     <section>
-        <h2>🔥 Core Systems</h2>
-        
-        <div class="project-grid">
-            <!-- 3D GPU Instancing -->
-            <div class="project-card">
-                <div class="project-header">
-                    <h3>3D GPU Instancing Methods</h3>
-                    <span class="project-type">3D Rendering</span>
-                </div>
-                <div class="project-body">
+        <h2>Core Systems</h2>
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <h3>3D GPU Instancing Methods</h3>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-inner">
                     <p>Three progressive GPU instancing approaches for rendering massive object counts efficiently with different performance profiles.</p>
-                    
+                    <div class="tool-image">Screenshot / GIF Placeholder</div>
+
+
                     <div class="tech-tags">
                         <span class="tech-tag">Compute Shader</span>
                         <span class="tech-tag">DrawMeshInstanced</span>
                         <span class="tech-tag">Matrix Calculation</span>
                     </div>
-                    
+
                     <ul class="features-list">
                         <li><strong>GPU_Instancer:</strong> Compute Shader based, 10K+ instances</li>
                         <li><strong>CPUInstancer:</strong> Batched rendering, 1K-10K instances</li>
-                        <li><strong>SimpleInstancing:</strong> Basic approach, <1K instances</li>
+                        <li><strong>SimpleInstancing:</strong> Basic approach, 1K instances</li>
                         <li>Random position, rotation, scale support</li>
                         <li>Custom shader integration</li>
                     </ul>
-                    
-                    <div class="project-links">
-                        <a href="https://github.com/rengincelik/GPU_Rendering/blob/main/GPU_3D/Export/3D_GPU_Instancing.unitypackage">📦 Unity Package</a>
-                        <a href="https://github.com/rengincelik/Mini-Dev-Kit/tree/main/MiniDevKit3D/Assets/_3D_GPU_Instancing">🔗 GitHub</a>
-                        <a href="https://github.com/rengincelik/Mini-Dev-Kit/blob/main/MiniDevKit3D/Assets/_3D_GPU_Instancing/Readme.md">📖 README</a>
+
+                    <div class="tool-links">
+                        <a href="https://github.com/rengincelik/GPU_Rendering/blob/main/3D_GPU_Instancing.unitypackage">📦 Unity Package</a>
+                        <a href="https://github.com/rengincelik/GPU_Rendering/tree/main/GPU_Instancing/Assets/_3D_GPU_Instancing">🔗 GitHub</a>
+                        <a href="https://github.com/rengincelik/GPU_Rendering/blob/main/GPU_Instancing/Assets/_3D_GPU_Instancing/Readme.md">📖 Readme</a>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- GPU Sprite Instancing -->
-            <div class="project-card">
-                <div class="project-header">
-                    <h3>GPU Sprite Instancing System</h3>
-                    <span class="project-type">2D Rendering</span>
-                </div>
-                <div class="project-body">
+        <!-- GPU Sprite Instancing -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <h3>GPU Sprite Instancing System</h3>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-inner">
                     <p>Advanced 2D sprite instancing with dynamic addition, spherical culling, and frustum culling for massive sprite rendering.</p>
-                    
+                    <div class="tool-image">Screenshot / GIF Placeholder</div>
+
                     <div class="tech-tags">
                         <span class="tech-tag">Atomic Operations</span>
                         <span class="tech-tag">Frustum Culling</span>
                         <span class="tech-tag">DrawMeshInstancedIndirect</span>
                     </div>
-                    
+
                     <ul class="features-list">
                         <li>Dynamic GPU memory slot allocation</li>
                         <li>Spherical culling around player</li>
@@ -363,29 +356,33 @@
                         <li>Real-time debug visualization</li>
                         <li>Thread-safe atomic counters</li>
                     </ul>
-                    
-                    <div class="project-links">
-                        <a href="https://github.com/rengincelik/Mini-Dev-Kit/tree/main/GPU_Instancing/Assets/_GPU_Sprite_Demo">🔗 GitHub</a>
-                        <a href="https://github.com/rengincelik/Mini-Dev-Kit/blob/main/GPU_Instancing/Assets/_GPU_Sprite_Demo/Readme.md">📖 README</a>
+
+                    <div class="tool-links">
+                        <a href="https://github.com/rengincelik/GPU_Rendering/blob/main/GPU_Sprite_Demo.unitypackage">📦 Unity Package</a>
+                        <a href="https://github.com/rengincelik/GPU_Rendering/tree/main/GPU_Instancing/Assets/_GPU_Sprite_Demo">🔗 GitHub</a>
+                        <a href="https://github.com/rengincelik/GPU_Rendering/blob/main/GPU_Instancing/Assets/_GPU_Sprite_Demo/Readme.md">📖 Readme</a>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Grass Rendering System -->
-            <div class="project-card">
-                <div class="project-header">
-                    <h3>GPU Grass Rendering</h3>
-                    <span class="project-type">Environment</span>
-                </div>
-                <div class="project-body">
+        <!-- Grass Rendering System -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <h3>GPU Grass Rendering</h3>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-inner">
                     <p>High-performance grass rendering system using GPU instancing and compute shaders for realistic vegetation.</p>
-                    
+                    <div class="tool-image">Screenshot / GIF Placeholder</div>
+
                     <div class="tech-tags">
                         <span class="tech-tag">ProBuilder Integration</span>
                         <span class="tech-tag">Gradient Coloring</span>
                         <span class="tech-tag">Procedural Generation</span>
                     </div>
-                    
+
                     <ul class="features-list">
                         <li>100K+ grass blade rendering</li>
                         <li>Grid-based positioning with noise</li>
@@ -393,28 +390,32 @@
                         <li>Scale randomization</li>
                         <li>ProBuilder mesh support</li>
                     </ul>
-                    
-                    <div class="project-links">
-                        <a href="https://github.com/rengincelik/Mini-Dev-Kit/tree/main/GPU_Instancing/Assets/_Grass">🔗 GitHub</a>
+
+                    <div class="tool-links">
+                        <a href="https://github.com/rengincelik/GPU_Rendering/blob/main/Grass_Leaf.unitypackage">📦 Unity Package</a>
+                        <a href="https://github.com/rengincelik/GPU_Rendering/tree/main/GPU_Instancing/Assets/_Grass">🔗 GitHub</a>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Random Spawning -->
-            <div class="project-card">
-                <div class="project-header">
-                    <h3>Random Spawn System</h3>
-                    <span class="project-type">Procedural Generation</span>
-                </div>
-                <div class="project-body">
+        <!-- Random Spawning -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <h3>Random Spawn System</h3>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-inner">
                     <p>GPU-accelerated random object spawning system with customizable area bounds and instance counts.</p>
-                    
+                    <div class="tool-image">Screenshot / GIF Placeholder</div>
+
                     <div class="tech-tags">
                         <span class="tech-tag">Compute Shader</span>
                         <span class="tech-tag">Random Generation</span>
                         <span class="tech-tag">Bounded Area</span>
                     </div>
-                    
+
                     <ul class="features-list">
                         <li>GPU-based random position generation</li>
                         <li>Customizable spawn area (XYZ bounds)</li>
@@ -422,28 +423,32 @@
                         <li>Indirect rendering</li>
                         <li>Visual gizmo editor</li>
                     </ul>
-                    
-                    <div class="project-links">
-                        <a href="https://github.com/rengincelik/Mini-Dev-Kit/tree/main/GPU_Instancing/Assets/_RandomSpawn">🔗 GitHub</a>
+
+                    <div class="tool-links">
+                        <a href="https://github.com/rengincelik/GPU_Rendering/blob/main/3D_RandomSpawn.unitypackage">📦 Unity Package</a>
+                        <a href="https://github.com/rengincelik/GPU_Rendering/tree/main/GPU_Instancing/Assets/_RandomSpawn">🔗 GitHub</a>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Scaling System -->
-            <div class="project-card">
-                <div class="project-header">
-                    <h3>Simple Scaling System</h3>
-                    <span class="project-type">Utility</span>
-                </div>
-                <div class="project-body">
+        <!-- Scaling System -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <h3>Simple Scaling System</h3>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-inner">
                     <p>Grid-based instance placement system with real-time scaling control and color management.</p>
-                    
+                    <div class="tool-image">Screenshot / GIF Placeholder</div>
+
                     <div class="tech-tags">
                         <span class="tech-tag">Grid System</span>
                         <span class="tech-tag">Real-time Scaling</span>
                         <span class="tech-tag">URP Lighting</span>
                     </div>
-                    
+
                     <ul class="features-list">
                         <li>3D grid-based positioning</li>
                         <li>Real-time scale adjustment</li>
@@ -451,28 +456,33 @@
                         <li>URP lighting integration</li>
                         <li>Shadow support</li>
                     </ul>
-                    
-                    <div class="project-links">
-                        <a href="https://github.com/rengincelik/Mini-Dev-Kit/tree/main/GPU_Instancing/Assets/_ScalingItems">🔗 GitHub</a>
+
+                    <div class="tool-links">
+                        <a href="https://github.com/rengincelik/GPU_Rendering/blob/main/3D_ScalingItems.unitypackage">📦 Unity Package</a>
+                        <a href="https://github.com/rengincelik/GPU_Rendering/tree/main/GPU_Instancing/Assets/_ScalingItems">🔗 GitHub</a>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Size Change System -->
-            <div class="project-card">
-                <div class="project-header">
-                    <h3>Dynamic Size System</h3>
-                    <span class="project-type">Utility</span>
-                </div>
-                <div class="project-body">
+        <!-- Size Change System -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <h3>Dynamic Size System</h3>
+                <span class="accordion-icon">▼</span>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-inner">
+
                     <p>Runtime size modification system for instanced objects with GPU-accelerated updates.</p>
-                    
+                    <div class="tool-image">Screenshot / GIF Placeholder</div>
+
                     <div class="tech-tags">
                         <span class="tech-tag">Runtime Modification</span>
                         <span class="tech-tag">GPU Update</span>
                         <span class="tech-tag">Instance Control</span>
                     </div>
-                    
+
                     <ul class="features-list">
                         <li>Runtime size modification</li>
                         <li>GPU-based updates</li>
@@ -480,13 +490,15 @@
                         <li>Bounded area spawning</li>
                         <li>20K+ instance support</li>
                     </ul>
-                    
-                    <div class="project-links">
-                        <a href="https://github.com/rengincelik/Mini-Dev-Kit/tree/main/GPU_Instancing/Assets/_SizeChange">🔗 GitHub</a>
+
+                    <div class="tool-links">
+                        <a href="https://github.com/rengincelik/GPU_Rendering/blob/main/3D_SizeChange.unitypackage">📦 Unity Package</a>
+                        <a href="https://github.com/rengincelik/GPU_Rendering/tree/main/GPU_Instancing/Assets/_SizeChange">🔗 GitHub</a>
                     </div>
                 </div>
             </div>
         </div>
+
     </section>
 
     <section>
@@ -494,7 +506,7 @@
         <div class="tech-tags" style="gap: 15px;">
             <span class="tech-tag" style="padding: 10px 20px; font-size: 1em;">Unity URP</span>
             <span class="tech-tag" style="padding: 10px 20px; font-size: 1em;">Compute Shaders</span>
-            <span class="tech-tag" style="padding: 10px 20px; font-size: 1em;">HLSL/GLSL</span>
+            <span class="tech-tag" style="padding: 10px 20px; font-size: 1em;">HLSL</span>
             <span class="tech-tag" style="padding: 10px 20px; font-size: 1em;">DrawMeshInstanced</span>
             <span class="tech-tag" style="padding: 10px 20px; font-size: 1em;">DrawMeshInstancedIndirect</span>
             <span class="tech-tag" style="padding: 10px 20px; font-size: 1em;">Structured Buffers</span>
@@ -532,7 +544,7 @@
             <p>✉️ <a href="mailto:rengin.celik97@gmail.com" style="color: #00d4ff; text-decoration: none;">rengin.celik97@gmail.com</a></p>
             <p>🌍 Istanbul, Turkey</p>
         </div>
-        
+
         <div class="contact-links">
             <a href="https://linkedin.com/in/rengincelik" target="_blank">LinkedIn</a>
             <a href="https://github.com/rengincelik" target="_blank">GitHub</a>
@@ -545,6 +557,24 @@
     <p>© 2025 Rengin Çelik - Game Developer & Technical Artist</p>
     <p style="margin-top: 10px; color: #666;">Specialized in GPU-Accelerated Rendering Systems</p>
 </footer>
+<script>
+function toggleAccordion(header) {
+    const item = header.parentElement;
+    const content = item.querySelector('.accordion-content');
+    const isActive = item.classList.contains('active');
 
+    // Close all accordions
+    document.querySelectorAll('.accordion-item').forEach(el => {
+        el.classList.remove('active');
+        el.querySelector('.accordion-content').style.maxHeight = null;
+    });
+
+    // Open clicked accordion if it wasn't active
+    if (!isActive) {
+        item.classList.add('active');
+        content.style.maxHeight = content.scrollHeight + 'px';
+    }
+}
+</script>
 </body>
 </html>
