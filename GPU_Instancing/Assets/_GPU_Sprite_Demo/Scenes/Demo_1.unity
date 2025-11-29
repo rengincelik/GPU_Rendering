@@ -360,17 +360,18 @@ MonoBehaviour:
   sourceSprite: {fileID: 408564042}
   maxInstances: 100000
   spawnPerFrame: 100
-  eraseRadius: 5
+  eraseRadius: 10
   minPosition: {x: -500, y: -50, z: 0}
   maxPosition: {x: 500, y: 50, z: 0}
   instanceCompute: {fileID: 7200000, guid: 4da54efe2b5d71c4e835402baeed09ba, type: 3}
   instancingMaterial: {fileID: 2100000, guid: 7d7c9b5798421ab46a5b39368c783278, type: 2}
-  showDeletedGizmos: 1
+  showDeletedGizmos: 0
   deletedGizmoColor: {r: 1, g: 0, b: 0, a: 1}
   gizmoDotSize: 1
   gizmoDisplayDuration: 2
   enableFrustumCulling: 1
   statsUpdateInterval: 1
+  showOnScreenStats: 0
 --- !u!4 &774674939
 Transform:
   m_ObjectHideFlags: 0

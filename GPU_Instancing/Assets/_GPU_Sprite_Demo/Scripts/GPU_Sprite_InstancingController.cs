@@ -27,6 +27,10 @@ public class GPU_Sprite_InstancingController : MonoBehaviour
     public bool enableFrustumCulling = true;
     public float statsUpdateInterval = 0.1f; // Update stats more frequently
 
+    [Header("UI Settings")]
+    public bool showOnScreenStats = true;
+
+
     // Buffers - Even simpler now!
     private ComputeBuffer mainBuffer;
     private ComputeBuffer newItemsBuffer;
@@ -342,6 +346,8 @@ public class GPU_Sprite_InstancingController : MonoBehaviour
 
     void OnGUI()
     {
+        if (!showOnScreenStats) return;
+        
         GUI.Box(new Rect(100, 100, 500, 160), "");
 
         int yPos = 100;
